@@ -1,5 +1,5 @@
 # gr-bb60
-This repository is a gnuradio support for signal hound bb60.
+This repository is a gnuradio support for signal hound bb60. It is tested for IQ and sweep mode. Testing for other modes need to be done.
 
 Download 
 
