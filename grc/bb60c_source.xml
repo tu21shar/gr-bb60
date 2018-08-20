@@ -1,0 +1,317 @@
+<?xml version="1.0"?>
+<block>
+  <name>source</name>
+  <key>bb60c_source</key>
+  <category>bb60c</category>
+  <import>import bb60c</import>
+  <make>bb60c.source($gain,$fc,$bw,$mode,$DetectorType,$VerticalScale,$atten,$ref,$rbw,$vbw,$sweeptime,$rbwtype,$rejecttype,$window,$procunit,$rtframescale,$rtframerate,$UseBNC,$BNC1,$BNC2,$decim,$span)</make>
+
+  <param>
+    <name>gain</name>
+    <key>gain</key>
+    <type>int</type>
+    <option>
+      <name>0</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>1</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>2</name>
+      <key>2</key>
+    </option>
+    <option>
+      <name>3</name>
+      <key>3</key>
+    </option>
+    <option>
+      <name>Auto</name>
+      <key>-1</key>
+    </option>
+  </param>
+
+  <param>
+    <name>fc</name>
+    <key>fc</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>bw</name>
+    <key>bw</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>mode</name>
+    <key>mode</key>
+    <type>string</type>
+    <option>
+      <name>Sweep</name>
+      <key>Sweep</key>
+    </option>
+    <option>
+      <name>RealTime</name>
+      <key>RealTime</key>
+    </option>
+    <option>
+      <name>IQ</name>
+      <key>IQ</key>
+    </option>
+    <option>
+      <name>AudioDemod</name>
+      <key>AudioDemod</key>
+    </option>
+    <option>
+      <name>ScalarNetw</name>
+      <key>ScalarNetw</key>
+    </option>
+  </param>
+
+
+
+  <param>
+    <name>DetectorType</name>
+    <key>DetectorType</key>
+    <type>int</type>
+    <option>
+      <name>BB_MIN_AND_MAX</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>BB_AVERAGE</name>
+      <key>1</key>
+    </option>
+  </param>
+
+  <param>
+    <name>VerticalScale</name>
+    <key>VerticalScale</key>
+    <type>int</type>
+    <option>
+      <name>BB_LOG_SCALE</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>BB_LIN_SCALE</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>BB_LOG_FULL_SCALE</name>
+      <key>2</key>
+    </option>
+    <option>
+      <name>BB_LIN_FULL_SCALE</name>
+      <key>3</key>
+    </option>
+  </param>
+
+  <param>
+    <name>atten</name>
+    <key>atten</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>ref</name>
+    <key>ref</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>rbw</name>
+    <key>rbw</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>vbw</name>
+    <key>vbw</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>sweeptime</name>
+    <key>sweeptime</key>
+    <type>float</type>
+  </param>
+
+
+  <param>
+    <name>rbwtype</name>
+    <key>rbwtype</key>
+    <type>int</type>
+    <option>
+      <name>BB_NATIVE_RBW</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>BB_NON_NATIVE_RBW</name>
+      <key>1</key>
+    </option>
+  </param>
+
+  <param>
+    <name>rejecttype</name>
+    <key>rejecttype</key>
+    <type>int</type>
+    <option>
+      <name>BB_NO_SPUR_REJECT</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>BB_SPUR_REJECT</name>
+      <key>1</key>
+    </option>
+  </param>
+
+  <param>
+    <name>window</name>
+    <key>window</key>
+    <type>int</type>
+   <option>
+      <name>BB_NUTALL</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>BB_BLACKMAN</name>
+      <key>1</key>
+    </option>
+   <option>
+      <name>BB_HAMMING</name>
+      <key>2</key>
+    </option>
+    <option>
+      <name>BB_FLAT_TOP</name>
+      <key>3</key>
+    </option>
+  </param>
+
+
+  <param>
+    <name>procunit</name>
+    <key>procunit</key>
+    <type>int</type>
+   <option>
+      <name>BB_LOG</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>BB_VOLTAGE</name>
+      <key>1</key>
+    </option>
+   <option>
+      <name>BB_POWER</name>
+      <key>2</key>
+    </option>
+    <option>
+      <name>BB_SAMPLE</name>
+      <key>3</key>
+    </option>
+  </param>
+
+  <param>
+    <name>rtframescale</name>
+    <key>rtframescale</key>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>rtframerate</name>
+    <key>rtframerate</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>UseBNC</name>
+    <key>UseBNC</key>
+    <type>string</type>
+   <option>
+      <name>Yes</name>
+      <key>Yes</key>
+    </option>
+    <option>
+      <name>No</name>
+      <key>No</key>
+    </option>
+
+  </param>
+
+  <param>
+    <name>BNC1</name>
+    <key>BNC1</key>
+    <type>int</type>
+   <option>
+      <name>BB_PORT1_AC_COUPLED/BB_PORT1_INT_REF_OUT</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>BB_PORT1_DC_COUPLED</name>
+      <key>4</key>
+    </option>
+    <option>
+      <name>BB_PORT1_EXT_REF_IN</name>
+      <key>8</key>
+    </option>
+   <option>
+      <name>BB_PORT1_OUT_AC_LOAD</name>
+      <key>16</key>
+    </option>
+    <option>
+      <name>BB_PORT1_OUT_LOGIC_LOW</name>
+      <key>20</key>
+    </option>
+    <option>
+      <name>BB_PORT1_OUT_LOGIC_HIGH</name>
+      <key>28</key>
+    </option>
+
+  </param>
+
+  <param>
+    <name>BNC2</name>
+    <key>BNC2</key>
+    <type>int</type>
+   <option>
+      <name>BB_PORT2_OUT_LOGIC_LOW</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>BB_PORT2_OUT_LOGIC_HIGH</name>
+      <key>32</key>
+    </option>
+   <option>
+      <name>BB_PORT2_IN_TRIGGER_RISING_EDGE</name>
+      <key>64</key>
+    </option>
+    <option>
+      <name>BB_PORT2_IN_TRIGGER_FALLING_EDGE</name>
+      <key>96</key>
+    </option>
+
+  </param>
+
+  <param>
+    <name>decim</name>
+    <key>decim</key>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>span</name>
+    <key>span</key>
+    <type>float</type>
+  </param>
+
+
+  <source>
+    <name>out</name>
+    <type>complex</type>
+  </source>
+
+
+
+
+</block>
