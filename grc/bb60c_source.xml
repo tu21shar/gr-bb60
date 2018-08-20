@@ -9,6 +9,7 @@
   <param>
     <name>gain</name>
     <key>gain</key>
+    <value>-1</value>
     <type>int</type>
     <option>
       <name>0</name>
@@ -35,18 +36,21 @@
   <param>
     <name>fc</name>
     <key>fc</key>
+    <value>100e6</value>
     <type>float</type>
   </param>
 
   <param>
     <name>bw</name>
     <key>bw</key>
+    <value>18e6</value>
     <type>float</type>
   </param>
 
   <param>
     <name>mode</name>
     <key>mode</key>
+    <value>IQ</value>
     <type>string</type>
     <option>
       <name>Sweep</name>
@@ -75,7 +79,9 @@
   <param>
     <name>DetectorType</name>
     <key>DetectorType</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
     <option>
       <name>BB_MIN_AND_MAX</name>
       <key>0</key>
@@ -89,7 +95,9 @@
   <param>
     <name>VerticalScale</name>
     <key>VerticalScale</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
     <option>
       <name>BB_LOG_SCALE</name>
       <key>0</key>
@@ -111,38 +119,50 @@
   <param>
     <name>atten</name>
     <key>atten</key>
+    <value>-1</value>
     <type>float</type>
+    <hide>part</hide>
   </param>
 
   <param>
     <name>ref</name>
     <key>ref</key>
+    <value>-70</value>
     <type>float</type>
+    <hide>part</hide>
   </param>
 
   <param>
     <name>rbw</name>
     <key>rbw</key>
+    <value>300e3</value>
     <type>float</type>
+    <hide>part</hide>
   </param>
 
   <param>
     <name>vbw</name>
     <key>vbw</key>
+    <value>300</value>
     <type>float</type>
+    <hide>part</hide>
   </param>
 
   <param>
     <name>sweeptime</name>
     <key>sweeptime</key>
+    <value>1e-3</value>
     <type>float</type>
+    <hide>part</hide>
   </param>
 
 
   <param>
     <name>rbwtype</name>
     <key>rbwtype</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
     <option>
       <name>BB_NATIVE_RBW</name>
       <key>0</key>
@@ -156,7 +176,9 @@
   <param>
     <name>rejecttype</name>
     <key>rejecttype</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
     <option>
       <name>BB_NO_SPUR_REJECT</name>
       <key>0</key>
@@ -170,7 +192,9 @@
   <param>
     <name>window</name>
     <key>window</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
    <option>
       <name>BB_NUTALL</name>
       <key>0</key>
@@ -193,7 +217,9 @@
   <param>
     <name>procunit</name>
     <key>procunit</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
    <option>
       <name>BB_LOG</name>
       <key>0</key>
@@ -215,18 +241,23 @@
   <param>
     <name>rtframescale</name>
     <key>rtframescale</key>
+    <value>0</value>
     <type>float</type>
+    <hide>part</hide>
   </param>
 
   <param>
     <name>rtframerate</name>
     <key>rtframerate</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
   </param>
 
   <param>
     <name>UseBNC</name>
     <key>UseBNC</key>
+    <value>No</value>
     <type>string</type>
    <option>
       <name>Yes</name>
@@ -242,7 +273,9 @@
   <param>
     <name>BNC1</name>
     <key>BNC1</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
    <option>
       <name>BB_PORT1_AC_COUPLED/BB_PORT1_INT_REF_OUT</name>
       <key>0</key>
@@ -273,7 +306,9 @@
   <param>
     <name>BNC2</name>
     <key>BNC2</key>
+    <value>0</value>
     <type>int</type>
+    <hide>part</hide>
    <option>
       <name>BB_PORT2_OUT_LOGIC_LOW</name>
       <key>0</key>
@@ -296,12 +331,14 @@
   <param>
     <name>decim</name>
     <key>decim</key>
+    <value>2</value>
     <type>int</type>
   </param>
 
   <param>
     <name>span</name>
     <key>span</key>
+    <value>1e6</value>
     <type>float</type>
   </param>
 
