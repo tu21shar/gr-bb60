@@ -39,7 +39,7 @@ endif(NOT bb60c_sources)
 
 
 add_library(gnuradio-bb60c SHARED ${bb60c_sources})
-target_link_libraries(gnuradio-bb60c ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} "/usr/local/lib/libbb_api.so.3")
+target_link_libraries(gnuradio-bb60c ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES} "/usr/local/lib/libbb_api.so")
 set_target_properties(gnuradio-bb60c PROPERTIES DEFINE_SYMBOL "gnuradio_bb60c_EXPORTS")
 
 if(APPLE)
