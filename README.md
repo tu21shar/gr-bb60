@@ -1,15 +1,14 @@
-# gr-bb60
-This repository is a gnuradio support for signal hound bb60. It is tested for IQ and sweep mode. Testing for other modes need to be done.
+# GNU Radio - BB60C
 
-Download 
+###### A GNU Radio module for the Signal Hound BB60C spectrum analyzer
 
-1. git clone https://github.com/tu21shar/gr-bb60.git
+_Currently in development._
 
 
-Preinstallation
+## Preinstallation
 
 1. sudo apt-get install libusb-1.0-0
-2. cd gr-bb60/sh_lib
+2. cd GNURadio-BB60C/sh_lib
 3. sudo cp bb60.rules /etc/udev/rules.d/ 
 4. cd lib
 5. ldconfig -v -n 
@@ -19,11 +18,9 @@ Preinstallation
 9. sudo cp libftd2xx.* /usr/local/lib
 
 
+## Installation
 
-
-Installation
-
-1. cd gr-bb60
+1. cd GNURadio-BB60C
 2. mkdir build
 3. cd build
 4. cmake ..
