@@ -1,6 +1,6 @@
 # GNU Radio - BB60C
 
-###### A GNU Radio module for the Signal Hound BB60C spectrum analyzer
+##### A GNU Radio module for the Signal Hound BB60C spectrum analyzer
 
 _Currently in development._
 

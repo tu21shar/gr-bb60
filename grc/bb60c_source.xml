@@ -1,264 +1,101 @@
 <?xml version="1.0"?>
 <block>
-  <name>source</name>
+  <name>BB60C: IQ Source</name>
   <key>bb60c_source</key>
-  <category>bb60c</category>
+  <category>[BB60C]</category>
   <import>import bb60c</import>
-  <make>bb60c.source($gain,$fc,$bw,$mode,$DetectorType,$VerticalScale,$atten,$ref,$rbw,$vbw,$sweeptime,$rbwtype,$rejecttype,$window,$procunit,$rtframescale,$rtframerate,$UseBNC,$BNC1,$BNC2,$decim,$span)</make>
+  <make>bb60c.source($center, $ref, $atten, $gain, $decimation, $bandwidth, $useBNC, $port1, $port2)</make>
 
   <param>
-    <name>gain</name>
-    <key>gain</key>
+    <name>Center</name>
+    <key>center</key>
+    <value>1e9</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Ref Level</name>
+    <key>ref</key>
+    <value>-20</value>
+    <type>float</type>
+  </param>
+
+  <param>
+    <name>Atten</name>
+    <key>atten</key>
     <value>-1</value>
-    <type>int</type>
+    <type>float</type>
+    <hide>part</hide>
     <option>
-      <name>0</name>
+      <name>0 dB</name>
       <key>0</key>
     </option>
     <option>
-      <name>1</name>
-      <key>1</key>
+      <name>10 dB</name>
+      <key>10</key>
     </option>
     <option>
-      <name>2</name>
-      <key>2</key>
+      <name>20 dB</name>
+      <key>20</key>
     </option>
     <option>
-      <name>3</name>
-      <key>3</key>
+      <name>30 dB</name>
+      <key>30</key>
     </option>
     <option>
-      <name>Auto</name>
+      <name>Auto Atten</name>
       <key>-1</key>
     </option>
   </param>
 
   <param>
-    <name>fc</name>
-    <key>fc</key>
-    <value>100e6</value>
-    <type>float</type>
+    <name>Gain</name>
+    <key>gain</key>
+    <value>-1</value>
+    <type>int</type>
+    <hide>part</hide>
+    <option>
+      <name>Gain 0</name>
+      <key>0</key>
+    </option>
+    <option>
+      <name>Gain 1</name>
+      <key>1</key>
+    </option>
+    <option>
+      <name>Gain 2</name>
+      <key>2</key>
+    </option>
+    <option>
+      <name>Gain 3</name>
+      <key>3</key>
+    </option>
+    <option>
+      <name>Auto Gain</name>
+      <key>-1</key>
+    </option>
   </param>
 
   <param>
-    <name>bw</name>
-    <key>bw</key>
+    <name>Decimation</name>
+    <key>decimation</key>
+    <value>2</value>
+    <type>int</type>
+  </param>
+
+  <param>
+    <name>Bandwidth</name>
+    <key>bandwidth</key>
     <value>18e6</value>
     <type>float</type>
   </param>
 
   <param>
-    <name>mode</name>
-    <key>mode</key>
-    <value>IQ</value>
-    <type>string</type>
-    <option>
-      <name>Sweep</name>
-      <key>Sweep</key>
-    </option>
-    <option>
-      <name>RealTime</name>
-      <key>RealTime</key>
-    </option>
-    <option>
-      <name>IQ</name>
-      <key>IQ</key>
-    </option>
-    <option>
-      <name>AudioDemod</name>
-      <key>AudioDemod</key>
-    </option>
-    <option>
-      <name>ScalarNetw</name>
-      <key>ScalarNetw</key>
-    </option>
-  </param>
-
-
-
-  <param>
-    <name>DetectorType</name>
-    <key>DetectorType</key>
-    <value>0</value>
-    <type>int</type>
-    <hide>part</hide>
-    <option>
-      <name>BB_MIN_AND_MAX</name>
-      <key>0</key>
-    </option>
-    <option>
-      <name>BB_AVERAGE</name>
-      <key>1</key>
-    </option>
-  </param>
-
-  <param>
-    <name>VerticalScale</name>
-    <key>VerticalScale</key>
-    <value>0</value>
-    <type>int</type>
-    <hide>part</hide>
-    <option>
-      <name>BB_LOG_SCALE</name>
-      <key>0</key>
-    </option>
-    <option>
-      <name>BB_LIN_SCALE</name>
-      <key>1</key>
-    </option>
-    <option>
-      <name>BB_LOG_FULL_SCALE</name>
-      <key>2</key>
-    </option>
-    <option>
-      <name>BB_LIN_FULL_SCALE</name>
-      <key>3</key>
-    </option>
-  </param>
-
-  <param>
-    <name>atten</name>
-    <key>atten</key>
-    <value>-1</value>
-    <type>float</type>
-    <hide>part</hide>
-  </param>
-
-  <param>
-    <name>ref</name>
-    <key>ref</key>
-    <value>-70</value>
-    <type>float</type>
-    <hide>part</hide>
-  </param>
-
-  <param>
-    <name>rbw</name>
-    <key>rbw</key>
-    <value>300e3</value>
-    <type>float</type>
-    <hide>part</hide>
-  </param>
-
-  <param>
-    <name>vbw</name>
-    <key>vbw</key>
-    <value>300</value>
-    <type>float</type>
-    <hide>part</hide>
-  </param>
-
-  <param>
-    <name>sweeptime</name>
-    <key>sweeptime</key>
-    <value>1e-3</value>
-    <type>float</type>
-    <hide>part</hide>
-  </param>
-
-
-  <param>
-    <name>rbwtype</name>
-    <key>rbwtype</key>
-    <value>0</value>
-    <type>int</type>
-    <hide>part</hide>
-    <option>
-      <name>BB_NATIVE_RBW</name>
-      <key>0</key>
-    </option>
-    <option>
-      <name>BB_NON_NATIVE_RBW</name>
-      <key>1</key>
-    </option>
-  </param>
-
-  <param>
-    <name>rejecttype</name>
-    <key>rejecttype</key>
-    <value>0</value>
-    <type>int</type>
-    <hide>part</hide>
-    <option>
-      <name>BB_NO_SPUR_REJECT</name>
-      <key>0</key>
-    </option>
-    <option>
-      <name>BB_SPUR_REJECT</name>
-      <key>1</key>
-    </option>
-  </param>
-
-  <param>
-    <name>window</name>
-    <key>window</key>
-    <value>0</value>
-    <type>int</type>
-    <hide>part</hide>
-   <option>
-      <name>BB_NUTALL</name>
-      <key>0</key>
-    </option>
-    <option>
-      <name>BB_BLACKMAN</name>
-      <key>1</key>
-    </option>
-   <option>
-      <name>BB_HAMMING</name>
-      <key>2</key>
-    </option>
-    <option>
-      <name>BB_FLAT_TOP</name>
-      <key>3</key>
-    </option>
-  </param>
-
-
-  <param>
-    <name>procunit</name>
-    <key>procunit</key>
-    <value>0</value>
-    <type>int</type>
-    <hide>part</hide>
-   <option>
-      <name>BB_LOG</name>
-      <key>0</key>
-    </option>
-    <option>
-      <name>BB_VOLTAGE</name>
-      <key>1</key>
-    </option>
-   <option>
-      <name>BB_POWER</name>
-      <key>2</key>
-    </option>
-    <option>
-      <name>BB_SAMPLE</name>
-      <key>3</key>
-    </option>
-  </param>
-
-  <param>
-    <name>rtframescale</name>
-    <key>rtframescale</key>
-    <value>0</value>
-    <type>float</type>
-    <hide>part</hide>
-  </param>
-
-  <param>
-    <name>rtframerate</name>
-    <key>rtframerate</key>
-    <value>0</value>
-    <type>int</type>
-    <hide>part</hide>
-  </param>
-
-  <param>
-    <name>UseBNC</name>
-    <key>UseBNC</key>
+    <name>Use BNC?</name>
+    <key>useBNC</key>
     <value>No</value>
     <type>string</type>
+    <hide>part</hide>
    <option>
       <name>Yes</name>
       <key>Yes</key>
@@ -267,88 +104,67 @@
       <name>No</name>
       <key>No</key>
     </option>
-
   </param>
 
   <param>
-    <name>BNC1</name>
-    <key>BNC1</key>
+    <name>BNC Port 1</name>
+    <key>port1</key>
     <value>0</value>
     <type>int</type>
     <hide>part</hide>
    <option>
-      <name>BB_PORT1_AC_COUPLED/BB_PORT1_INT_REF_OUT</name>
+      <name>AC Coupled / Int Ref Out</name>
       <key>0</key>
     </option>
     <option>
-      <name>BB_PORT1_DC_COUPLED</name>
+      <name>DC Coupled</name>
       <key>4</key>
     </option>
     <option>
-      <name>BB_PORT1_EXT_REF_IN</name>
+      <name>Ext Ref In</name>
       <key>8</key>
     </option>
    <option>
-      <name>BB_PORT1_OUT_AC_LOAD</name>
+      <name>Out AC Load</name>
       <key>16</key>
     </option>
     <option>
-      <name>BB_PORT1_OUT_LOGIC_LOW</name>
+      <name>Out Logic Low</name>
       <key>20</key>
     </option>
     <option>
-      <name>BB_PORT1_OUT_LOGIC_HIGH</name>
+      <name>Out Logic High</name>
       <key>28</key>
     </option>
-
   </param>
 
   <param>
-    <name>BNC2</name>
-    <key>BNC2</key>
+    <name>BNC Port 2</name>
+    <key>port2</key>
     <value>0</value>
     <type>int</type>
     <hide>part</hide>
    <option>
-      <name>BB_PORT2_OUT_LOGIC_LOW</name>
+      <name>Out Logic Low</name>
       <key>0</key>
     </option>
     <option>
-      <name>BB_PORT2_OUT_LOGIC_HIGH</name>
+      <name>Out Logic High</name>
       <key>32</key>
     </option>
    <option>
-      <name>BB_PORT2_IN_TRIGGER_RISING_EDGE</name>
+      <name>In Trigger Rising Edge</name>
       <key>64</key>
     </option>
     <option>
-      <name>BB_PORT2_IN_TRIGGER_FALLING_EDGE</name>
+      <name>In Trigger Falling Edge</name>
       <key>96</key>
     </option>
-
   </param>
-
-  <param>
-    <name>decim</name>
-    <key>decim</key>
-    <value>2</value>
-    <type>int</type>
-  </param>
-
-  <param>
-    <name>span</name>
-    <key>span</key>
-    <value>1e6</value>
-    <type>float</type>
-  </param>
-
 
   <source>
     <name>out</name>
     <type>complex</type>
   </source>
-
-
-
 
 </block>
