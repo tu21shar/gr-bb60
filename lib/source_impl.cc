@@ -1,7 +1,8 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2018 <tu21sharma@gmail.com>.
- * @author 2018 by Tushar Sharma <tu21sharma@gmail.com>
+ * Copyright (C) 2018 Signal Hound, Inc. <support@signalhound.com>
+ *
+ * Adapted from code by Tushar Sharma <tu21sharma@gmail.com>
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,32 +42,32 @@ namespace gr {
                      int gain,
                      int decimation,
                      double bandwidth,
-                     std::string useBNC,
+                     bool purge,
+                     bool bnc,
                      int port1,
                      int port2)
         {
             return gnuradio::get_initial_sptr(
-                new source_impl(center, ref, atten, gain, decimation, bandwidth, useBNC, port1, port2)
+                new source_impl(center, ref, atten, gain, decimation, bandwidth, purge, bnc, port1, port2)
             );
         }
 
         void ERROR_CHECK(bbStatus status) {
             if(status != bbNoError) {
-                std::cout << "Error: " << bbGetErrorString(status) << "\n";
-                abort();
+                bool isWarning = status < bbNoError ? false : true;
+                std::cout << "** " << (isWarning ? "Warning: " : "Error: ") << bbGetErrorString(status) << " **" << "\n";
+                if(!isWarning) abort();
             }
         }
 
-        /*
-         * The private constructor
-         */
         source_impl::source_impl(double center,
                                  double ref,
                                  double atten,
                                  int gain,
                                  int decimation,
                                  double bandwidth,
-                                 std::string useBNC,
+                                 bool purge,
+                                 bool bnc,
                                  int port1,
                                  int port2) :
             gr::sync_block("source",
@@ -79,9 +80,13 @@ namespace gr {
             d_gain(gain),
             d_decimation(decimation),
             d_bandwidth(bandwidth),
-            d_useBNC(useBNC == "Yes" ? true : false),
+            d_purge(purge),
+            d_bnc(bnc),
             d_port1(port1),
-            d_port2(port2)
+            d_port2(port2),
+            d_param_changed(true),
+            d_buffer(0),
+            d_len(0)
         {
             std::cout << "\nAPI Version: " << bbGetAPIVersion() << "\n";
 
@@ -91,17 +96,64 @@ namespace gr {
             unsigned int serial;
             ERROR_CHECK(bbGetSerialNumber(handle, &serial));
             std::cout << "Serial Number: "<< serial << "\n";
+        }
+
+        source_impl::~source_impl()
+        {
+            bbAbort(handle);
+            bbCloseDevice(handle);
+
+            if(d_buffer) delete [] d_buffer;
+        }
+
+        void
+        source_impl::set_center(double center) {
+            gr::thread::scoped_lock lock(d_mutex);
+            d_center = center;
+            d_param_changed = true;
+        }
+
+        void
+        source_impl::set_ref(double ref) {
+            gr::thread::scoped_lock lock(d_mutex);
+            d_ref = ref;
+            d_param_changed = true;
+        }
+
+        void
+        source_impl::set_decimation(int decimation) {
+            gr::thread::scoped_lock lock(d_mutex);
+            d_decimation = decimation;
+            d_param_changed = true;
+        }
+
+        void
+        source_impl::set_bandwidth(double bandwidth) {
+            gr::thread::scoped_lock lock(d_mutex);
+            d_bandwidth = bandwidth;
+            d_param_changed = true;
+        }
+
+        void
+        source_impl::set_purge(bool purge) {
+            gr::thread::scoped_lock lock(d_mutex);
+            d_purge = purge;
+        }
+
+        void
+        source_impl::configure() {
+            gr::thread::scoped_lock lock(d_mutex);
 
             // Configure
             ERROR_CHECK(bbConfigureCenterSpan(handle, d_center, 20e6)); // Span unused, set valid default
             ERROR_CHECK(bbConfigureLevel(handle, d_ref, d_atten));
             ERROR_CHECK(bbConfigureGain(handle, d_gain));
-            if(d_useBNC) ERROR_CHECK(bbConfigureIO(handle, d_port1, d_port2));
+            if(d_bnc) ERROR_CHECK(bbConfigureIO(handle, d_port1, d_port2));
             ERROR_CHECK(bbConfigureIQ(handle, d_decimation, d_bandwidth));
 
             // Initiate for IQ streaming
             ERROR_CHECK(bbInitiate(handle, BB_STREAMING, BB_STREAM_IQ));
-            std::cout << "\nBB60C initiated for IQ streaming...\n";
+            // std::cout << "\nBB60C initiated for IQ streaming...\n";
 
             // Get IQ streaming info
             double actualBandwidth;
@@ -111,41 +163,40 @@ namespace gr {
             std::cout << "Sample Rate: "<< sampleRate << "\n";
         }
 
-        /*
-         * Our virtual destructor.
-         */
-        source_impl::~source_impl()
-        {
-            bbAbort(handle);
-            bbCloseDevice(handle);
-        }
-
-        int source_impl::work(int noutput_items,
-                              gr_vector_const_void_star &input_items,
-                              gr_vector_void_star &output_items)
+        int
+        source_impl::work(int noutput_items,
+                          gr_vector_const_void_star &input_items,
+                          gr_vector_void_star &output_items)
         {
             float *o = (float*)output_items[0];
 
-            // Allocate memory
-            const int BLOCK_SIZE = noutput_items / 2;
-            float *buffer = new float[BLOCK_SIZE * 2];
+            // Initiate new configuration if necessary
+            if(d_param_changed) {
+                configure();
+                d_param_changed = false;
+            }
+
+            // Allocate memory if necessary
+            if(!d_buffer || noutput_items != d_len) {
+                if(d_buffer) delete [] d_buffer;
+                d_buffer = new float[noutput_items];
+                d_len = noutput_items;
+            }
 
             bbIQPacket pkt;
-            pkt.iqData = buffer;
-            pkt.iqCount = BLOCK_SIZE;
+            pkt.iqData = d_buffer;
+            pkt.iqCount = noutput_items / 2;
             pkt.triggers = 0;
             pkt.triggerCount = 0;
-            pkt.purge = false;
+            pkt.purge = d_purge;
 
             // Get IQ
             ERROR_CHECK(bbGetIQ(handle, &pkt));
 
             // Move data to output array
             for(int i = 0; i < std::min(pkt.dataRemaining, noutput_items); i++) {
-                o[i] =  buffer[i];
+                o[i] =  d_buffer[i];
             }
-
-            delete [] buffer;
 
             return noutput_items;
         }

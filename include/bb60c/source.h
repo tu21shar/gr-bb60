@@ -1,7 +1,8 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2018 <tu21sharma@gmail.com>.
- * @author 2018 by Tushar Sharma <tu21sharma@gmail.com>
+ * Copyright (C) 2018 Signal Hound, Inc. <support@signalhound.com>
+ *
+ * Adapted from code by Tushar Sharma <tu21sharma@gmail.com>
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,7 +34,7 @@ namespace gr {
   namespace bb60c {
 
     /*!
-     * This block configures the Signal Hound BB60C spectrum analyzer and streams IQ data.
+     * This block acquires IQ data from the Signal Hound BB60C spectrum analyzer.
      *
      *
      */
@@ -42,23 +43,22 @@ namespace gr {
     public:
       typedef boost::shared_ptr<source> sptr;
 
-      /*!
-       * \brief Return a shared_ptr to a new instance of bb60c::source.
-       *
-       * To avoid accidental use of raw pointers, bb60c::source's
-       * constructor is in a private implementation
-       * class. bb60c::source::make is the public interface for
-       * creating new instances.
-       */
       static sptr make(double center,
                        double ref,
                        double atten,
                        int gain,
                        int decimation,
                        double bandwidth,
-                       std::string useBNC,
+                       bool purge,
+                       bool bnc,
                        int port1,
                        int port2);
+
+      virtual void set_center(double center) = 0;
+      virtual void set_ref(double ref) = 0;
+      virtual void set_decimation(int decimation) = 0;
+      virtual void set_bandwidth(double bandwidth) = 0;
+      virtual void set_purge(bool purge) = 0;
     };
 
   } // namespace bb60c

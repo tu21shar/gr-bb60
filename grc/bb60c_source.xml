@@ -4,7 +4,12 @@
   <key>bb60c_source</key>
   <category>[BB60C]</category>
   <import>import bb60c</import>
-  <make>bb60c.source($center, $ref, $atten, $gain, $decimation, $bandwidth, $useBNC, $port1, $port2)</make>
+  <make>bb60c.source($center, $ref, $atten, $gain, $decimation, $bandwidth, $purge, $bnc, $port1, $port2)</make>
+  <callback>set_center($center)</callback>
+  <callback>set_ref($ref)</callback>
+  <callback>set_decimation($decimation)</callback>
+  <callback>set_bandwidth($bandwidth)</callback>
+  <callback>set_purge($purge)</callback>
 
   <param>
     <name>Center</name>
@@ -91,19 +96,19 @@
   </param>
 
   <param>
-    <name>Use BNC?</name>
-    <key>useBNC</key>
-    <value>No</value>
-    <type>string</type>
+    <name>Purge?</name>
+    <key>purge</key>
+    <value>False</value>
+    <type>bool</type>
     <hide>part</hide>
-   <option>
-      <name>Yes</name>
-      <key>Yes</key>
-    </option>
-    <option>
-      <name>No</name>
-      <key>No</key>
-    </option>
+  </param>
+
+  <param>
+    <name>Use BNC?</name>
+    <key>bnc</key>
+    <value>False</value>
+    <type>bool</type>
+    <hide>part</hide>
   </param>
 
   <param>

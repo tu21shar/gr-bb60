@@ -1,7 +1,8 @@
 /* -*- c++ -*- */
 /*
- * Copyright 2018 <tu21sharma@gmail.com>.
- * @author 2018 by Tushar Sharma <tu21sharma@gmail.com>
+ * Copyright (C) 2018 Signal Hound, Inc. <support@signalhound.com>
+ *
+ * Adapted from code by Tushar Sharma <tu21sharma@gmail.com>
  *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,9 +40,16 @@ namespace gr {
             int d_gain;
             int d_decimation;
             double d_bandwidth;
-            bool d_useBNC;
+            bool d_purge;
+            bool d_bnc;
             unsigned int d_port1;
             unsigned int d_port2;
+
+            gr::thread::mutex d_mutex;
+            bool d_param_changed;
+
+            float *d_buffer;
+            bool d_len;
 
         public:
             source_impl(double center,
@@ -50,10 +58,19 @@ namespace gr {
                         int gain,
                         int decimation,
                         double bandwidth,
-                        std::string useBNC,
+                        bool purge,
+                        bool bnc,
                         int port1,
                         int port2);
             ~source_impl();
+
+            void set_center(double center);
+            void set_ref(double ref);
+            void set_decimation(int decimation);
+            void set_bandwidth(double bandwidth);
+            void set_purge(bool purge);
+
+            void configure();
 
             int work(int noutput_items,
                      gr_vector_const_void_star &input_items,
