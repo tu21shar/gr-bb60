@@ -1,29 +1,34 @@
-# GNU Radio - BB60C
+# gr-bb60c
 
-##### A GNU Radio module for the Signal Hound BB60C spectrum analyzer
+## A [GNU Radio](https://www.gnuradio.org) module for the [Signal Hound BB60C 6 GHz Real-Time Spectrum Analyzer](https://signalhound.com/products/bb60c/)
 
-_Currently in development._
+### Requirements
 
+- 64-bit Linux operating system
+- Native USB 3.0 support
 
-## Preinstallation
+### Prerequisites
 
-1. sudo apt-get install libusb-1.0-0
-2. cd GNURadio-BB60C/sh_lib
-3. sudo cp bb60.rules /etc/udev/rules.d/ 
-4. cd lib
-5. ldconfig -v -n 
-6. ln -sf libbb_api.so.3.0.16 libbb_api.so
-7. sudo cp libbb_api.* /usr/local/lib
-8. ldconfig -v -n
-9. sudo cp libftd2xx.* /usr/local/lib
+1. [Install GNU Radio](https://wiki.gnuradio.org/index.php/InstallingGR).
+2. [Install the Signal Hound SDK](https://signalhound.com/software/signal-hound-software-development-kit-sdk/).
+    - Follow directions in _device_apis/bb_series/linux/README.txt_.
 
+### Installation
 
-## Installation
+1. Clone this repository.
+2. Run the following code from the root directory of the repository:
 
-1. cd GNURadio-BB60C
-2. mkdir build
-3. cd build
-4. cmake ..
-5. make
-6. sudo make install
-7. sudo ldconfig
+```bash
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+sudo ldconfig
+```
+
+### Usage
+
+- Add the __BB60C: IQ Source__ block to flowgraphs in the GNU Radio Companion. It is located under the __Signal Hound BB60C__ category.
+    - See examples folder for demos.
+- Use the block in Python code with `import bb60c`.
