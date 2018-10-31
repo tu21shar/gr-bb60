@@ -26,7 +26,7 @@ include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 list(APPEND bb60c_sources
-    source_impl.cc 
+    source_impl.cc
 
 )
 

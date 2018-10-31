@@ -32,7 +32,7 @@ namespace gr {
         class source_impl : public source
         {
         private:
-            int handle;
+            int d_handle;
 
             double d_center;
             double d_ref;

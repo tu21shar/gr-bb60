@@ -26,11 +26,6 @@
 
 #include <gnuradio/io_signature.h>
 #include "source_impl.h"
-#include <stdlib.h>
-#include <fstream>
-#include <stdio.h>
-
-
 
 namespace gr {
     namespace bb60c {
@@ -73,7 +68,7 @@ namespace gr {
             gr::sync_block("source",
                            gr::io_signature::make(0,0,0),
                            gr::io_signature::make(1, 1, sizeof(gr_complex))),
-            handle(-1),
+            d_handle(-1),
             d_center(center),
             d_ref(ref),
             d_atten(atten),
@@ -91,17 +86,17 @@ namespace gr {
             std::cout << "\nAPI Version: " << bbGetAPIVersion() << "\n";
 
             // Open device
-            ERROR_CHECK(bbOpenDevice(&handle));
+            ERROR_CHECK(bbOpenDevice(&d_handle));
 
             unsigned int serial;
-            ERROR_CHECK(bbGetSerialNumber(handle, &serial));
+            ERROR_CHECK(bbGetSerialNumber(d_handle, &serial));
             std::cout << "Serial Number: "<< serial << "\n";
         }
 
         source_impl::~source_impl()
         {
-            bbAbort(handle);
-            bbCloseDevice(handle);
+            bbAbort(d_handle);
+            bbCloseDevice(d_handle);
 
             if(d_buffer) delete [] d_buffer;
         }
@@ -145,20 +140,20 @@ namespace gr {
             gr::thread::scoped_lock lock(d_mutex);
 
             // Configure
-            ERROR_CHECK(bbConfigureCenterSpan(handle, d_center, 20e6)); // Span unused, set valid default
-            ERROR_CHECK(bbConfigureLevel(handle, d_ref, d_atten));
-            ERROR_CHECK(bbConfigureGain(handle, d_gain));
-            if(d_bnc) ERROR_CHECK(bbConfigureIO(handle, d_port1, d_port2));
-            ERROR_CHECK(bbConfigureIQ(handle, d_decimation, d_bandwidth));
+            ERROR_CHECK(bbConfigureCenterSpan(d_handle, d_center, 20e6)); // Span unused, set valid default
+            ERROR_CHECK(bbConfigureLevel(d_handle, d_ref, d_atten));
+            ERROR_CHECK(bbConfigureGain(d_handle, d_gain));
+            if(d_bnc) ERROR_CHECK(bbConfigureIO(d_handle, d_port1, d_port2));
+            ERROR_CHECK(bbConfigureIQ(d_handle, d_decimation, d_bandwidth));
 
             // Initiate for IQ streaming
-            ERROR_CHECK(bbInitiate(handle, BB_STREAMING, BB_STREAM_IQ));
+            ERROR_CHECK(bbInitiate(d_handle, BB_STREAMING, BB_STREAM_IQ));
             // std::cout << "\nBB60C initiated for IQ streaming...\n";
 
             // Get IQ streaming info
             double actualBandwidth;
             int sampleRate;
-            ERROR_CHECK(bbQueryStreamInfo(handle, 0, &actualBandwidth, &sampleRate));
+            ERROR_CHECK(bbQueryStreamInfo(d_handle, 0, &actualBandwidth, &sampleRate));
             std::cout << "\nActual Bandwidth: "<< actualBandwidth << "\n";
             std::cout << "Sample Rate: "<< sampleRate << "\n";
         }
@@ -191,7 +186,7 @@ namespace gr {
             pkt.purge = d_purge;
 
             // Get IQ
-            ERROR_CHECK(bbGetIQ(handle, &pkt));
+            ERROR_CHECK(bbGetIQ(d_handle, &pkt));
 
             // Move data to output array
             for(int i = 0; i < std::min(pkt.dataRemaining, noutput_items); i++) {

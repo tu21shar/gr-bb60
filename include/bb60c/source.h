@@ -26,9 +26,6 @@
 
 #include <bb60c/api.h>
 #include <gnuradio/sync_block.h>
-#include <iostream>
-#include <math.h>
-#include <string.h>
 
 namespace gr {
   namespace bb60c {

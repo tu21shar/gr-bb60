@@ -2,7 +2,7 @@
 <block>
   <name>BB60C: IQ Source</name>
   <key>bb60c_source</key>
-  <category>[BB60C]</category>
+  <category>[Signal Hound BB60C]</category>
   <import>import bb60c</import>
   <make>bb60c.source($center, $ref, $atten, $gain, $decimation, $bandwidth, $purge, $bnc, $port1, $port2)</make>
   <callback>set_center($center)</callback>

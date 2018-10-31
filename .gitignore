@@ -1,2 +1,2 @@
 build/
-examples/iq_streaming.py
+examples/*.py
