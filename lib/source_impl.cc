@@ -148,7 +148,6 @@ namespace gr {
 
             // Initiate for IQ streaming
             ERROR_CHECK(bbInitiate(d_handle, BB_STREAMING, BB_STREAM_IQ));
-            // std::cout << "\nBB60C initiated for IQ streaming...\n";
 
             // Get IQ streaming info
             double actualBandwidth;
