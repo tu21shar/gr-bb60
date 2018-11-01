@@ -163,7 +163,7 @@ namespace gr {
                           gr_vector_const_void_star &input_items,
                           gr_vector_void_star &output_items)
         {
-            float *o = (float*)output_items[0];
+            std::complex<float> *o = (std::complex<float> *)output_items[0];
 
             // Initiate new configuration if necessary
             if(d_param_changed) {
@@ -174,13 +174,13 @@ namespace gr {
             // Allocate memory if necessary
             if(!d_buffer || noutput_items != d_len) {
                 if(d_buffer) delete [] d_buffer;
-                d_buffer = new float[noutput_items];
+                d_buffer = new std::complex<float>[noutput_items];
                 d_len = noutput_items;
             }
 
             bbIQPacket pkt;
-            pkt.iqData = d_buffer;
-            pkt.iqCount = noutput_items / 2;
+            pkt.iqData = (float *)d_buffer;
+            pkt.iqCount = noutput_items;
             pkt.triggers = 0;
             pkt.triggerCount = 0;
             pkt.purge = d_purge;
@@ -189,7 +189,7 @@ namespace gr {
             ERROR_CHECK(bbGetIQ(d_handle, &pkt));
 
             // Move data to output array
-            for(int i = 0; i < std::min(pkt.dataRemaining, noutput_items); i++) {
+            for(int i = 0; i < noutput_items; i++) {
                 o[i] =  d_buffer[i];
             }
 

@@ -48,7 +48,7 @@ namespace gr {
             gr::thread::mutex d_mutex;
             bool d_param_changed;
 
-            float *d_buffer;
+            std::complex<float> *d_buffer;
             bool d_len;
 
         public:
