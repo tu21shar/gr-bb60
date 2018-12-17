@@ -140,7 +140,7 @@ namespace gr {
             gr::thread::scoped_lock lock(d_mutex);
 
             // Configure
-            ERROR_CHECK(bbConfigureCenterSpan(d_handle, d_center, 20e6)); // Span unused, set valid default
+            ERROR_CHECK(bbConfigureCenterSpan(d_handle, d_center, 20.0)); // Span unused, set valid default
             ERROR_CHECK(bbConfigureLevel(d_handle, d_ref, d_atten));
             ERROR_CHECK(bbConfigureGain(d_handle, d_gain));
             if(d_bnc) ERROR_CHECK(bbConfigureIO(d_handle, d_port1, d_port2));

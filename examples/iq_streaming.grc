@@ -192,7 +192,7 @@
     </param>
     <param>
       <key>step</key>
-      <value>100e6</value>
+      <value>1</value>
     </param>
     <param>
       <key>stop</key>
