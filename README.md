@@ -13,6 +13,7 @@
 ### Prerequisites
 
 1. [Install GNU Radio](https://wiki.gnuradio.org/index.php/InstallingGR).
+    - GNURadio 3.8, currently a release candidate, updates to Python 3, which is not currently supported by this module. Look [here](https://wiki.gnuradio.org/index.php/GNU_Radio_3.8_OOT_Module_Porting_Guide) if you are interested in porting the code.
 2. [Install the Signal Hound SDK](https://signalhound.com/software/signal-hound-software-development-kit-sdk/).
     - Follow directions in _device_apis/bb_series/linux/README.txt_.
 
